@@ -17,7 +17,6 @@ function generateTaskId() {
 
 // Creates a function to create a task card
 function createTaskCard(task) {
-    //const taskId = generateTaskId();
     const taskCard = `
       <div id="${task.id}" class="card task-card mb-3" data-id="${task.id}">
         <div class="card-header">
@@ -34,7 +33,8 @@ function createTaskCard(task) {
 
 // Creates a function to render the task list and make cards draggable
 function renderTaskList() {
-    $('#todo-cards').empty();
+
+  $('#todo-cards').empty();
   $('#in-progress-cards').empty();
   $('#done-cards').empty();
 
@@ -95,13 +95,18 @@ function handleAddTask(event){
 }
 
 // Creates a function to handle deleting a task
+// Creates a function to handle deleting a task
 function handleDeleteTask(event){
-    const taskId = $(this).closest('.task-card').data('id');
-    taskList.notStarted = taskList.notStarted.filter(task => task.id !== taskId);
-    taskList.inProgress = taskList.inProgress.filter(task => task.id !== taskId);
-    taskList.completed = taskList.completed.filter(task => task.id !== taskId);
-    localStorage.setItem("tasks", JSON.stringify(taskList));
-    renderTaskList(); 
+  const taskId = $(this).closest('.task-card').data('id');
+  
+  // Remove the task with taskId from the taskList array
+  taskList = taskList.filter(task => task.id !== taskId);
+  
+  // Update localStorage with the modified taskList
+  localStorage.setItem("tasks", JSON.stringify(taskList));
+  
+  // Re-render the task list
+  renderTaskList(); 
 }
 
 // Creates a function to handle dropping a task into a new status lane
@@ -128,6 +133,7 @@ function handleDrop(event, ui) {
 $(document).ready(function () {
     renderTaskList();
 $('#addTaskForm').on('submit', handleAddTask);
+
   // Add task event listener
   $('#add-task-btn').on('click', function () {
     $('#task-title').val('');
@@ -148,4 +154,4 @@ $('#addTaskForm').on('submit', handleAddTask);
   $('#task-deadline').datepicker({
     dateFormat: 'yy-mm-dd'
   });
-});
+  });
