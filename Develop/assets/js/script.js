@@ -18,7 +18,7 @@ function generateTaskId() {
 // Creates a function to create a task card
 function createTaskCard(task) {
     const taskCard = `
-      <div id="${task.id}" class="card task-card mb-3" data-id="${task.id}">
+      <div id="${task.id}" class="card task-card mb-3 " data-id="${task.id}">
         <div class="card-header">
           <h5 class="card-title">${task.title}</h5>
           <button type="button" class="btn-close delete-task" aria-label="Close"></button>
@@ -94,7 +94,6 @@ function handleAddTask(event){
   }
 }
 
-// Creates a function to handle deleting a task
 // Creates a function to handle deleting a task
 function handleDeleteTask(event){
   const taskId = $(this).closest('.task-card').data('id');
